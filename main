@@ -28,7 +28,7 @@ GO
 
 -- Import data from the CSV file into the Employees table
 BULK INSERT Employees
-FROM 'C:\path\to\Employee.csv'
+FROM 'C:\Users\jason\SQLemployeePractice\Employee.csv'
 WITH (
     FORMAT = 'CSV',
     FIRSTROW = 2,  -- Skip the header row
