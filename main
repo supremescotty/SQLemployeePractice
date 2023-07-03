@@ -1,0 +1,55 @@
+-- Create the database
+CREATE DATABASE AdventureWorks;
+GO
+
+-- Use the AdventureWorks database
+USE AdventureWorks;
+GO
+
+-- Create the Employees table
+CREATE TABLE Employees (
+    EmployeeID INT,
+    NationalIDNumber INT,
+    LoginID NVARCHAR(256),
+    OrganizationNode NVARCHAR(256),
+    JobTitle NVARCHAR(50),
+    BirthDate DATE,
+    MaritalStatus NVARCHAR(1),
+    Gender NVARCHAR(1),
+    HireDate DATE,
+    SalariedFlag BIT,
+    VacationHours SMALLINT,
+    SickLeaveHours SMALLINT,
+    CurrentFlag BIT,
+    rowguid UNIQUEIDENTIFIER,
+    ModifiedDate DATETIME
+);
+GO
+
+-- Import data from the CSV file into the Employees table
+BULK INSERT Employees
+FROM 'C:\path\to\Employee.csv'
+WITH (
+    FORMAT = 'CSV',
+    FIRSTROW = 2,  -- Skip the header row
+    FIELDTERMINATOR = '\t',
+    ROWTERMINATOR = '\n'
+);
+GO
+
+-- Query 1: Retrieve all employees' salaries
+SELECT EmployeeID, JobTitle, SalariedFlag, CurrentFlag
+FROM Employees;
+GO
+
+-- Query 2: Retrieve all employees with a salary greater than $50,000
+SELECT EmployeeID, JobTitle, SalariedFlag, CurrentFlag
+FROM Employees
+WHERE SalariedFlag = 1 AND CurrentFlag = 1;
+GO
+
+-- Query 3: Retrieve all employees hired after a specific date
+SELECT EmployeeID, JobTitle, HireDate
+FROM Employees
+WHERE HireDate > '2010-01-01';
+GO
